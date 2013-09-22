@@ -55,7 +55,12 @@ class JobChainOrdersController extends AppController {
 				$this->Session->setFlash(__('The job chain order could not be saved. Please, try again.'));
 			}
 		}
-		$hosts = $this->JobChainOrder->Host->find('list');
+
+		if (array_key_exists('host_id', $this->passedArgs)) {
+			$hosts = $this->JobChainOrder->Host->find('list', array('conditions' => array('id' => $this->passedArgs['host_id'])));
+		} else {
+			$hosts = $this->JobChainOrder->Host->find('list');
+		}
 		$jobChains = $this->JobChainOrder->JobChain->find('list');
 		$schedulerOrders = $this->JobChainOrder->SchedulerOrder->find('list');
 		$this->set(compact('hosts', 'jobChains', 'schedulerOrders'));
