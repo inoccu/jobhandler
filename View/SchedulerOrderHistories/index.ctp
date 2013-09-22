@@ -11,7 +11,6 @@
 			<th><?php echo $this->Paginator->sort('state_text'); ?></th>
 			<th><?php echo $this->Paginator->sort('start_time'); ?></th>
 			<th><?php echo $this->Paginator->sort('end_time'); ?></th>
-			<th><?php echo $this->Paginator->sort('log'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($schedulerOrderHistories as $schedulerOrderHistory): ?>
@@ -25,11 +24,8 @@
 		<td><?php echo h($schedulerOrderHistory['SchedulerOrderHistory']['state_text']); ?>&nbsp;</td>
 		<td><?php echo h($schedulerOrderHistory['SchedulerOrderHistory']['start_time']); ?>&nbsp;</td>
 		<td><?php echo h($schedulerOrderHistory['SchedulerOrderHistory']['end_time']); ?>&nbsp;</td>
-		<td><?php echo h($schedulerOrderHistory['SchedulerOrderHistory']['log']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $schedulerOrderHistory['SchedulerOrderHistory']['history_id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $schedulerOrderHistory['SchedulerOrderHistory']['history_id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $schedulerOrderHistory['SchedulerOrderHistory']['history_id']), null, __('Are you sure you want to delete # %s?', $schedulerOrderHistory['SchedulerOrderHistory']['history_id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -51,6 +47,5 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Scheduler Order History'), array('action' => 'add')); ?></li>
 	</ul>
 </div>

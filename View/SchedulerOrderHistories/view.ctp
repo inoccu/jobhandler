@@ -56,9 +56,6 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Scheduler Order History'), array('action' => 'edit', $schedulerOrderHistory['SchedulerOrderHistory']['history_id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Scheduler Order History'), array('action' => 'delete', $schedulerOrderHistory['SchedulerOrderHistory']['history_id']), null, __('Are you sure you want to delete # %s?', $schedulerOrderHistory['SchedulerOrderHistory']['history_id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Scheduler Order Histories'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Scheduler Order History'), array('action' => 'add')); ?> </li>
 	</ul>
 </div>
