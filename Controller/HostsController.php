@@ -36,7 +36,7 @@ class HostsController extends AppController {
 		if (!$this->Host->exists($id)) {
 			throw new NotFoundException(__('Invalid host'));
 		}
-		$options = array('conditions' => array('Host.' . $this->Host->primaryKey => $id));
+		$options = array('conditions' => array('Host.' . $this->Host->primaryKey => $id), 'recursive' => 2);
 		$this->set('host', $this->Host->find('first', $options));
 	}
 

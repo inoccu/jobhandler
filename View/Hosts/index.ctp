@@ -5,8 +5,6 @@
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
 			<th><?php echo $this->Paginator->sort('nagios_host_name'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('modified'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($hosts as $host): ?>
@@ -14,8 +12,6 @@
 		<td><?php echo h($host['Host']['id']); ?>&nbsp;</td>
 		<td><?php echo h($host['Host']['name']); ?>&nbsp;</td>
 		<td><?php echo h($host['Host']['nagios_host_name']); ?>&nbsp;</td>
-		<td><?php echo h($host['Host']['created']); ?>&nbsp;</td>
-		<td><?php echo h($host['Host']['modified']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $host['Host']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $host['Host']['id'])); ?>
@@ -42,7 +38,5 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Host'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Job Chain Orders'), array('controller' => 'job_chain_orders', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Job Chain Order'), array('controller' => 'job_chain_orders', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
