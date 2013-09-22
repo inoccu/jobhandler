@@ -3,4 +3,5 @@
 *.swp
 *.log
 *_cake_core_*
+*_cake_model_*
 cake_toolbar_*
