@@ -7,6 +7,7 @@
 		echo $this->Form->input('job_chain_id');
 		echo $this->Form->input('order_id', array('type' => 'text', 'readonly' => 'readonly'));
 		echo $this->Form->input('nagios_service_description');
+		echo $this->Form->input('run_time');
 		echo $this->Form->input('param_1');
 		echo $this->Form->input('param_2');
 		echo $this->Form->input('param_3');

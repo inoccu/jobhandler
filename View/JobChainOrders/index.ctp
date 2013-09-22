@@ -7,6 +7,7 @@
 			<th><?php echo $this->Paginator->sort('job_chain_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('order_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('nagios_service_description'); ?></th>
+			<th><?php echo $this->Paginator->sort('run_time'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($jobChainOrders as $jobChainOrder): ?>
@@ -22,6 +23,7 @@
 			<?php echo $jobChainOrder['SchedulerOrder']['id']; ?>
 		</td>
 		<td><?php echo h($jobChainOrder['JobChainOrder']['nagios_service_description']); ?>&nbsp;</td>
+		<td><?php echo h($jobChainOrder['JobChainOrder']['run_time']); ?></td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $jobChainOrder['JobChainOrder']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $jobChainOrder['JobChainOrder']['id'])); ?>

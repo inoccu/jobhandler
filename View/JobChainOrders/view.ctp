@@ -26,6 +26,11 @@
 			<?php echo h($jobChainOrder['JobChainOrder']['nagios_service_description']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Run Time'); ?></dt>
+		<dd>
+			<?php echo h($jobChainOrder['JobChainOrder']['run_time']); ?>
+			&nbsp;
+		</dd>
 		<dt><?php echo __('Param 1'); ?></dt>
 		<dd>
 			<?php echo h($jobChainOrder['JobChainOrder']['param_1']); ?>
@@ -87,7 +92,6 @@
 		<th><?php echo __('State Text'); ?></th>
 		<th><?php echo __('Start Time'); ?></th>
 		<th><?php echo __('End Time'); ?></th>
-		<th><?php echo __('Log'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($jobChainOrder['SchedulerOrderHistories'] as $schedulerOrderHistories): ?>
@@ -101,7 +105,6 @@
 			<td><?php echo $schedulerOrderHistories['state_text']; ?></td>
 			<td><?php echo $schedulerOrderHistories['start_time']; ?></td>
 			<td><?php echo $schedulerOrderHistories['end_time']; ?></td>
-			<td><?php echo $schedulerOrderHistories['log']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'scheduler_order_histories', 'action' => 'view', $schedulerOrderHistories['history_id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'scheduler_order_histories', 'action' => 'edit', $schedulerOrderHistories['history_id'])); ?>

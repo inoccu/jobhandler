@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+App::import('Vendor', 'scheduler_command', array('file' => 'scheduler/sos_scheduler_ordercommand_launcher.inc.php'));
 /**
  * JobChainOrders Controller
  *
@@ -49,6 +50,26 @@ class JobChainOrdersController extends AppController {
 		if ($this->request->is('post')) {
 			$this->JobChainOrder->create();
 			if ($this->JobChainOrder->save($this->request->data)) {
+
+				// instanciation JobScheduler Launcher
+				$launcher = new SOS_Scheduler_OrderCommand_Launcher('localhost', 4444, 30);
+
+				// add Order to JobScheduler
+				$jobChainOrder = $this->JobChainOrder->read();
+				$order = $launcher->add_order($jobChainOrder['JobChain']['job_chain_path'], null);
+				$order->id = $jobChainOrder['JobChainOrder']['id'];
+				$order->replace = 'yes';
+				$order->run_time()->period()->single_start = $jobChainOrder['JobChainOrder']['run_time'];
+				for ($i=1; $i<=5; $i++) {
+					if (!empty($jobChainOrder['JobChain']["param_name_$i"])) {
+						$order->addParam($jobChainOrder['JobChain']["param_name_$i"], $jobChainOrder['JobChainOrder']["param_$i"]);
+					}
+				}
+				$launcher->execute($order);
+
+				$jobChainOrder['JobChainOrder']['order_id'] = $order->id;
+				$this->JobChainOrder->save($jobChainOrder);
+
 				$this->Session->setFlash(__('The job chain order has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -79,6 +100,23 @@ class JobChainOrdersController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->JobChainOrder->save($this->request->data)) {
+
+				// instanciation JobScheduler Launcher
+				$launcher = new SOS_Scheduler_OrderCommand_Launcher('localhost', 4444, 30);
+
+				// modify Order to JobScheduler
+				$jobChainOrder = $this->JobChainOrder->read();
+				$order = $launcher->add_order($jobChainOrder['JobChain']['job_chain_path'], null);
+				$order->id = $jobChainOrder['JobChainOrder']['order_id'];
+				$order->replace = 'yes';
+				$order->run_time()->period()->single_start = $jobChainOrder['JobChainOrder']['run_time'];
+				for ($i=1; $i<=5; $i++) {
+					if (!empty($jobChainOrder['JobChain']["param_name_$i"])) {
+						$order->addParam($jobChainOrder['JobChain']["param_name_$i"], $jobChainOrder['JobChainOrder']["param_$i"]);
+					}
+				}
+				$launcher->execute($order);
+
 				$this->Session->setFlash(__('The job chain order has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
@@ -107,7 +145,19 @@ class JobChainOrdersController extends AppController {
 			throw new NotFoundException(__('Invalid job chain order'));
 		}
 		$this->request->onlyAllow('post', 'delete');
+		
+		// read jobChainOrder before deleting
+		$jobChainOrder = $this->JobChainOrder->read();
+		
 		if ($this->JobChainOrder->delete()) {
+
+			// instanciation JobScheduler Launcher
+			$launcher = new SOS_Scheduler_OrderCommand_Launcher('localhost', 4444, 30);
+
+			// remove Order to JobScheduler
+			$order = $launcher->remove_order($jobChainOrder['JobChain']['job_chain_path'], $jobChainOrder['JobChainOrder']['order_id']);
+			$launcher->execute($order);
+
 			$this->Session->setFlash(__('The job chain order has been deleted.'));
 		} else {
 			$this->Session->setFlash(__('The job chain order could not be deleted. Please, try again.'));
